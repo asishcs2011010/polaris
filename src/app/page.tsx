@@ -18,7 +18,7 @@ export default function Home() {
         ADD NEW
       </Button>
       {projects?.map((project) => (
-            <div className = "border roundex p-2 flex flex-col" key = {project._id}>
+            <div className = "border rounded p-2 flex flex-col" key = {project._id}>
                <p>{project.name}</p>
                <p>Owner Id: {project.ownerId}</p>
             </div>
