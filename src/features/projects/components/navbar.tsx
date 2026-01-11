@@ -62,7 +62,7 @@ export const Navbar = ({
     if(!project) return;
     setIsRenaming(false);
 
-    const trimmedName = name.trimEnd();
+    const trimmedName = name.trim();
     if(!trimmedName || trimmedName === project.name) return;
 
     renameProject({id: projectId, name: trimmedName});
