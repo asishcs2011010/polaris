@@ -46,7 +46,7 @@ export const Navbar = ({
 }) => {
 
   const project = useProject(projectId);
-  const renameProject = useRenameProject(projectId);
+  const renameProject = useRenameProject();
 
   const [isRenaming, setIsRenaming] = useState(false);
   const [name, setName] = useState("");
@@ -62,7 +62,7 @@ export const Navbar = ({
     if(!project) return;
     setIsRenaming(false);
 
-    const trimmedName = name.trimEnd();
+    const trimmedName = name.trim();
     if(!trimmedName || trimmedName === project.name) return;
 
     renameProject({id: projectId, name: trimmedName});
