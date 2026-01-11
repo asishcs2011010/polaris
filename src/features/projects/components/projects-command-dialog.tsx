@@ -67,8 +67,6 @@ export const ProjectsCommandDialog = ({
             >
             {getProjectIcon(project)}
             <span>{project.name}</span>
-            {getProjectIcon(project)}
-            <span>{project.name}</span>
             </CommandItem>
          ))}
         </CommandGroup>
