@@ -57,7 +57,7 @@ export const TreeItemWrapper = ({
            </button>
         </ContextMenuTrigger>
         <ContextMenuContent
-          onCloseAutoFocus={(e) => e.preventDefault}
+          onCloseAutoFocus={(e) => e.preventDefault()}
           className="w-64"
         >
          {item.type === "folder" && (
