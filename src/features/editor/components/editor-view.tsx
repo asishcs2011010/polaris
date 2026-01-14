@@ -16,18 +16,26 @@ export const EditorView = ({ projectId }: { projectId: Id<"projects"> }) => {
   const activeFile = useFile(activeTabId);
   const updateFile = useUpdateFile();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const pendingUpdateRef = useRef<{ id: Id<"files">; content: string } | null>(null);
 
   const isActiveFileBinary = activeFile && activeFile.storageId;
   const isActiveFileText = activeFile && !activeFile.storageId;
 
   // Cleanup pending debounced updates on unmount or file change
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [activeTabId]);
+ useEffect(() => {
+  return () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    // Flush any pending update before tab switch/unmount
+    if (pendingUpdateRef.current) {
+      updateFile(pendingUpdateRef.current);
+      pendingUpdateRef.current = null;
+    }
+  };
+}, [activeTabId, updateFile]);
 
   return (
     <div className="h-full flex flex-col">
@@ -57,8 +65,12 @@ export const EditorView = ({ projectId }: { projectId: Id<"projects"> }) => {
                 clearTimeout(timeoutRef.current);
               }
 
+              // Track pending update
+              pendingUpdateRef.current = { id: activeFile._id, content };
+
               timeoutRef.current = setTimeout(() => {
                 updateFile({ id: activeFile._id, content });
+                pendingUpdateRef.current = null; // clear after successful flush
               }, DEBOUNCE_MS);
             }}
           />

@@ -47,7 +47,7 @@ export const useEditorStore = create<EditorStore>()((set,get) => ({
         const {openTabs, previewTabId} = state;
         const isOpen = openTabs.includes(fileId);
 
-        // case 1: opeining as preview
+        // case 1: opening as preview
 
         if(!isOpen && !pinned){
             const newTabs = previewTabId

@@ -1,4 +1,4 @@
-import { act, useState } from "react";
+import { useState } from "react";
  
 import { ChevronRightIcon } from "lucide-react";
 import { FileIcon, FolderIcon } from "@react-symbols/icons/utils";
