@@ -59,7 +59,7 @@ export const EditorView = ({ projectId }: { projectId: Id<"projects"> }) => {
           <CodeEditor
             key={activeFile._id}
             fileName={activeFile.name}
-            initialValue={activeFile.content}
+            initialValue={activeFile.content ?? ""}
             onChange={(content: string) => {
               if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
